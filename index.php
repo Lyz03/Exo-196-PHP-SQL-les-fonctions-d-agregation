@@ -24,7 +24,65 @@
      */
 
     // TODO Votre code ici, commencez par require un des objet de connexion que nous avons fait ensemble.
+    require __DIR__ . '/Classes/DB.php';
 
+    $db = new DB();
+    $db= $db->getInstance();
+
+    $stmt = $db->prepare("SELECT MIN(age) FROM user");
+    if ($stmt->execute()) {
+        foreach ($stmt->fetch() as $value) {
+            echo 'Age minimum : ' . $value . ' ans<br>';
+        }
+
+        echo '<br><br>';
+    }
+
+
+    $stmt = $db->prepare("SELECT MAX(age) FROM user");
+    if ($stmt->execute()) {
+        foreach ($stmt->fetch() as $value) {
+            echo 'Age maximum : ' . $value . ' ans<br>';
+        }
+
+        echo '<br><br>';
+    }
+
+    $stmt = $db->prepare("SELECT COUNT(*) FROM user");
+    if ($stmt->execute()) {
+        foreach ($stmt->fetch() as $value) {
+            echo 'Il y a ' . $value . ' utilisateurs<br>';
+        }
+
+        echo '<br><br>';
+    }
+
+    $stmt = $db->prepare("SELECT COUNT(*) FROM user WHERE numero >= 5");
+    if ($stmt->execute()) {
+        foreach ($stmt->fetch() as $value) {
+            echo 'Il y a ' . $value . ' utilisateurs ayant un numero de rue égale ou supérieur à 5<br>';
+        }
+
+        echo '<br><br>';
+    }
+
+    $stmt = $db->prepare("SELECT AVG(age) FROM user");
+    if ($stmt->execute()) {
+        foreach ($stmt->fetch() as $value) {
+            echo 'La moyenne d\'age est de : ' . $value . ' ans<br>';
+        }
+
+        echo '<br><br>';
+    }
+
+    $stmt = $db->prepare("SELECT SUM(numero) FROM user");
+    if ($stmt->execute()) {
+        foreach ($stmt->fetch() as $value) {
+            echo 'La somme de numéro de maison est : ' . $value . '<br>';
+        }
+
+        echo '<br><br>';
+    }
 
     ?>
 </body>
